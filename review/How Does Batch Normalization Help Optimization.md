@@ -8,7 +8,7 @@
 
 BatchNorm을 아예 모르신다면 [**Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift**](http://proceedings.mlr.press/v37/ioffe15.pdf) 논문을 가볍게 읽어보시는 것을 추천합니다.
 
-개인적으로 논문을 공부할 때 태도를 깨우쳐준 논문이라 의미가 있습니다.
+개인적으로 논문을 공부하는 태도를 깨우쳐준 논문이라 의미가 있습니다.
 
 BatchNorm이 2015년에 등장을 하고 정말 많은 관심을 받으며 deep learning model에 적용이 되었는데 , 본 paper에서는 2015년에 발표된 Batch Norm의 설명을 뒤엎고 새로운 관점에서 BatchNorm의 이유를 설명하고 있습니다.
 
