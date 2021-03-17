@@ -6,4 +6,9 @@
  
  paper : https://arxiv.org/abs/1805.11604
  
+ ---
+ 
+ 2021-03-21 : [CVPR] Fast and Accurate Model scaling (2021 , Piotr Dollár, Mannat Singh, Ross Girshick)
+ 
+ paper : https://arxiv.org/abs/2103.06877
  
