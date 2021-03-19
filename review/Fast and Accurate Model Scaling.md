@@ -37,28 +37,14 @@
 
 #### Complexity Metrics
 
-* Complexity를 측정할 때 고려되는 세가지 요소가 있습니다.
-
-  * flops(f) : floating point operations
-  * parameters(p) : to denote the number of free variables
-  * activations(a) : as the number of elements in the output tensors of convolutional layers
-
-Flops 와 parameters가 일반적인 complexity 측정 지표로 사용되고 있었습니다.
-
-하지만 컨볼루션의 parameter들이 입력 해상도와 독립적이므로 컨볼루션 네트워크의 용량 또는 런타임을 완전히 반영하지는 못하게 됩니다.
-
-따라서, 다양한 입력 해상도로 네트워크를 연구한다는 점을 고려할 때, parameter들을 보고하지만 일차적인 복잡성 척도로 flops에 초점을 맞춥니다.
-
-activation이 reporting되는 빈도는 적지만, 본 Paper에서 증명하는 바와 같이 네트워크 속도를 결정하는 데 중요한 역할을 하므로 저자는 scaling 과 activation간의 관계를 분석할 것이라고 합니다.
-
 
 ## Runtime of Scaled Models
 
-* 다시 한번 본 Paper의 Motivation을 상기시켜 보면 , fast 하면서 accurate한 scaling 방법을 고안하는 것이었습니다.
+* 다시 한번 본 Paper의 Motivation을 상기시켜 보면 , **fast 하면서 accurate한** scaling 방법을 고안하는 것이었습니다.
 
 * 위에서 다양한 scaling 기법에 대한 flops , parameter , activation들의 변화를 살펴봤습니다.
 
-* 여기서는 어떠한 metric이 model run-time에 가장 밀접한 관계가 있는지 알아보는 것입니다.
+* 여기서는 어떠한 metric이 model run-time에 **가장 밀접한 관계가 있는지** 알아보는 것입니다.
 
 * 밑에 그림을 보면 flops , parameters , activations 에 대한 run-time을 각각의 scaling 기법을 적용해 표현한 그래프입니다.
 
@@ -66,12 +52,41 @@ activation이 reporting되는 빈도는 적지만, 본 Paper에서 증명하는 
 
   그래프를 간단히 설명하면 EN-OO 라고 적혀있는 것은 Efficient-Net에 4가지 scaling 기법을 적용한 것입니다.(single-width , depth-width , Compound , fast-Compound)
   
-  fit 이라고 적힌 검정색 line은 Pearson Correlation 를 계산한 것이며 **flops , parameters , activations** 들과 **Runtime** 간에 **관련성**을 나타내줍니다.
+  fit 이라고 적힌 검정색 line은 **Pearson Correlation** 를 계산한 것이며 **flops , parameters , activations** 들과 **Runtime** 간에 **관련성**을 나타내줍니다.
   
   확인해보면 Activation이 Runtime과 **가장 높은 관련성**을 보여주고 있다는 것을 확인할 수 있습니다.
 
 ## Fast Compound Model Scaling
 
-  앞선 실험에서 Model의 Run-time과 activation이 큰 연관을 가지는 
+  * 앞선 실험에서 Model의 Run-time과 activation이 큰 연관 **(activation이 증가하면 Runtime이 증가한다)** 을 가지는 것을 확인했습니다. 
+  
+  * 그래서 저자는 scaling 방식을 **가능한 activation을 최소화시키는 방향**으로 고안했습니다. 
+  
+  * 아이디어는 Single-scaling 결과를 관찰한 것에서 기인합니다. Width가 그나마 activation 증가에 덜 영향을 주기 때문에 Width scaling에 비중을 높이고 , Depth와 Resolution에 비중을 줄이는 방향으로 설계 합니다.
+
+<img width="347" alt="스크린샷 2021-03-19 오후 6 50 09" src="https://user-images.githubusercontent.com/70448161/111762179-0f90c900-88e4-11eb-84fa-c232cb340a0c.png">
+  
+    변수 alpha를 도입하여 이러한 아이디어를 구현할 수 있는데 먼저 간단한 상수들을 정의 해줍니다. 
+  
+<img width="416" alt="스크린샷 2021-03-19 오후 6 50 17" src="https://user-images.githubusercontent.com/70448161/111762185-10c1f600-88e4-11eb-9484-799cfecb57ba.png">
+
+    그리고 scaling factor들을 다음과 같이 정의해줍니다.
+  
+<img width="438" alt="스크린샷 2021-03-19 오후 8 11 21" src="https://user-images.githubusercontent.com/70448161/111771657-4b7d5b80-88ef-11eb-8d9f-36b875f08ad0.png">
+ 
+    위에서 정의한 scaling factor들을 가지고 flops , parameters , activations 들을 정의해줍니다.
+  
+이러한 alpha들을 조절해줌으로써 다양한 결과들이 나온다고 합니다
+
+* alpha = 0 : resulting in depth and resolution scaling (dr)
+* alpha = 1/3 : corresponds to uniform compound scaling (dwr)
+
+이때 , 흥미로운 부분이 1/3 < alpha < 1 부분인데 , alpha가 1에 가까우면 **fast scaling**이 된다고 합니다 
+
+본 Paper에서는 **alpha=0.8** 을 default로 설정했습니다. (dWr)
+
+<img width="396" alt="스크린샷 2021-03-19 오후 6 50 41" src="https://user-images.githubusercontent.com/70448161/111772310-102f5c80-88f0-11eb-8e32-462832a9f3e1.png">
+
+**activation이 비교적 적게 증가하는 것을 확인할 수 있습니다.**
 
 ## Experiments
