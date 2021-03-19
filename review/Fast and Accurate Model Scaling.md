@@ -8,7 +8,7 @@
 
 * 그래서 속도와 정확도를 둘다 적당히 잡아주는 방법이 필요했는데 여기에 사용되는 방법이 **Model Scaling**이라고 합니다.
 
-* CNN model의 **"width" , "depth" , "resolution"** 을 조절 해주는 model scaling 방법들이 존재하고 있지만 scaling 방법들의 trade-off 관계가 완벽히 연구되지 않았다고 합니다.
+* CNN model의 **"width(filter의 채널갯수)" , "depth(layer들의 갯수)" , "resolution(input size)"** 을 조절 해주는 model scaling 방법들이 존재하고 있지만 scaling 방법들의 trade-off 관계가 완벽히 연구되지 않았다고 합니다.
 
 * 현재 대부분의 연구들은 **accuracy**와 **Flops**간의 상호관계에 주로 초점을 두었었습니다.
 
@@ -21,7 +21,7 @@
 
   - 기존의 Scaling 연구들은 대부분 Accuracy를 높여주는 것이 대부분이었습니다.
   
-  - 그래서 본 Paper의 저자는 다음과 같은 의문이 들었다고 합니다 **"Can we disign scaling strategies that optimize both accuracy and model runtime(speed)"**
+  - 그래서 본 Paper의 저자는 다음과 같은 의문이 들었다고 합니다 **"Can we design scaling strategies that optimize both accuracy and model runtime(speed)"**
 
   - 본 연구는 Fast scaling이라는 방법을 제시했고 따라서 본 논문의 Contribution은 **동일한 Accuracy지만 더 빠른 Runtime을 가질 수 있게하는 Scaling 방법을 제시한 것에 있습니다.**
 
@@ -54,8 +54,24 @@ activation이 reporting되는 빈도는 적지만, 본 Paper에서 증명하는 
 
 ## Runtime of Scaled Models
 
+* 다시 한번 본 Paper의 Motivation을 상기시켜 보면 , fast 하면서 accurate한 scaling 방법을 고안하는 것이었습니다.
+
+* 위에서 다양한 scaling 기법에 대한 flops , parameter , activation들의 변화를 살펴봤습니다.
+
+* 여기서는 어떠한 metric이 model run-time에 가장 밀접한 관계가 있는지 알아보는 것입니다.
+
+* 밑에 그림을 보면 flops , parameters , activations 에 대한 run-time을 각각의 scaling 기법을 적용해 표현한 그래프입니다.
+
+<img width="679" alt="스크린샷 2021-03-19 오후 6 13 43" src="https://user-images.githubusercontent.com/70448161/111757634-df92f700-88de-11eb-8867-19a0181f6727.png">
+
+  그래프를 간단히 설명하면 EN-OO 라고 적혀있는 것은 Efficient-Net에 4가지 scaling 기법을 적용한 것입니다.(single-width , depth-width , Compound , fast-Compound)
+  
+  fit 이라고 적힌 검정색 line은 Pearson Correlation 를 계산한 것이며 **flops , parameters , activations** 들과 **Runtime** 간에 **관련성**을 나타내줍니다.
+  
+  확인해보면 Activation이 Runtime과 **가장 높은 관련성**을 보여주고 있다는 것을 확인할 수 있습니다.
 
 ## Fast Compound Model Scaling
 
+  앞선 실험에서 Model의 Run-time과 activation이 큰 연관을 가지는 
 
 ## Experiments
