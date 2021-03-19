@@ -1,15 +1,6 @@
 # [CVPR] Fast and Accurate Model Scaling , 2021
 **Piotr Dollar , Mannat Singh , Ross Girshick [FaceBook AI Research]**
 
-## Term 
-
-1. Width : 
-2. Depth
-3. Resolution
-4. FLOPS
-5. Parameter
-6. Activations
-
 
 ## Abstract
 
@@ -28,11 +19,37 @@
 
 ## Introduction
 
+  - 기존의 Scaling 연구들은 대부분 Accuracy를 높여주는 것이 대부분이었습니다.
+  
+  - 그래서 본 Paper의 저자는 다음과 같은 의문이 들었다고 합니다 **"Can we disign scaling strategies that optimize both accuracy and model runtime(speed)"**
 
-## Related Work
+  - 본 연구는 Fast scaling이라는 방법을 제시했고 따라서 본 논문의 Contribution은 **동일한 Accuracy지만 더 빠른 Runtime을 가질 수 있게하는 Scaling 방법을 제시한 것에 있습니다.**
 
+<img width="862" alt="스크린샷 2021-03-19 오후 4 04 49" src="https://user-images.githubusercontent.com/70448161/111744190-2c220680-88ce-11eb-8441-0f1bf9a57f0c.png">
+
+그래프를 보면 정확도 측면에서는 Compound scaling과 비슷하거나 동일한 성능을 보여주지만 , epoch time과 activation의 점근적 증가율이 많이 낮은 것을 확인할 수 있습니다.
+
+어떻게 이런 성능에 도달했는지는 Fast Compound Model Scaling 파트에서 다루도록 하고 우선 다양한 scaling 기법의 complexity를 분석하는 방법에 대해 알아보겠습니다. (flops , parameters , activations)
 
 ## Complexity of Scaled Models
+
+이 파트에서는 다양한 network scaling 기법의 complexity를 분석하는 방법에 대해 알아보겠습니다.
+
+#### Complexity Metrics
+
+* Complexity를 측정할 때 고려되는 세가지 요소가 있습니다.
+
+  * flops(f) : floating point operations
+  * parameters(p) : to denote the number of free variables
+  * activations(a) : as the number of elements in the output tensors of convolutional layers
+
+Flops 와 parameters가 일반적인 complexity 측정 지표로 사용되고 있었습니다.
+
+하지만 컨볼루션의 parameter들이 입력 해상도와 독립적이므로 컨볼루션 네트워크의 용량 또는 런타임을 완전히 반영하지는 못하게 됩니다.
+
+따라서, 다양한 입력 해상도로 네트워크를 연구한다는 점을 고려할 때, parameter들을 보고하지만 일차적인 복잡성 척도로 flops에 초점을 맞춥니다.
+
+activation이 reporting되는 빈도는 적지만, 본 Paper에서 증명하는 바와 같이 네트워크 속도를 결정하는 데 중요한 역할을 하므로 저자는 scaling 과 activation간의 관계를 분석할 것이라고 합니다.
 
 
 ## Runtime of Scaled Models
