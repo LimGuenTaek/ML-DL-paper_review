@@ -59,13 +59,19 @@ Scaling은 Filter의 채널수(**width**)를 늘리거나 , Layer수(**Depth**)�
   
   fit 이라고 적힌 검정색 line은 **Pearson Correlation** 를 계산한 것이며 **flops , parameters , activations** 들과 **Runtime** 간에 **관련성**을 나타내줍니다.
   
+  하나씩 확인을 해보자면 먼저 **Flops**의 Pearson Coefficient는 0.81 입니다. 서로 비슷한 추이를 가지고 있는 것 같지만 Flops가 Runtime을 완전히 예측할 수는 없습니다. Scaling 기법별로 증가하는 추이가 조금 다르기 때문입니다.
+  
+  다음은 **Parameter**입니다. Parameter는 Flops 보다 더 낮은 Pearson Coefficient를 가지고 있으며 확실히 scaling 기법별로 증가하는 추이가 완전히 다른것을 확인 할 수 있습니다.
+  
+  마지막으로 **Activation**입니다. Activation은 scaling 기법과는 관계없이 일관된 추이를 보여주고 있습니다. 따라서 Activation으로 Runtime을 예측하는 것은 좋은 접근입니다.
+  
   확인해보면 Activation이 Runtime과 **가장 높은 관련성**을 보여주고 있다는 것을 확인할 수 있습니다.
   
-  **즉 , Activation의 증가가 Runtime에 더욱 치명적이다라는 의미를 내포하고 있습니다.**
+  **즉 , Activation의 증가가 Runtime에 더욱 치명적이다 라는 의미를 내포하고 있습니다.**
 
 ## Fast Compound Model Scaling
 
-  * 앞선 실험에서 Model의 Run-time과 activation이 큰 연관 **(activation이 증가하면 Runtime이 증가한다)** 을 가지는 것을 확인했습니다. 
+  * 앞선 실험에서 Model의 Run-time과 activation이 큰 연관 **(scaling 기법 상관없이 activation이 증가하면 Runtime이 증가한다)** 을 가지는 것을 확인했습니다. 
   
   * 그래서 저자는 scaling 방식을 **가능한 activation을 최소화시키는 방향**으로 고안했습니다. 
   
