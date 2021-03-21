@@ -34,6 +34,10 @@ Scaling은 Filter의 채널수(**width**)를 늘리거나 , Layer수(**Depth**)�
 
 <img width="862" alt="스크린샷 2021-03-19 오후 4 04 49" src="https://user-images.githubusercontent.com/70448161/111744190-2c220680-88ce-11eb-8441-0f1bf9a57f0c.png">
 
+* 그래프의 x축에 나와있는 flops는 연산능력 , 처리하는 연산량 이런 개념이고
+
+* 그래프이 x축에 나와있는 scale은 scaling factor인데 scale이 클수록 높은 비율로 scaling 한 것을 의미합니다.
+
 * 그래프를 보면 정확도 측면에서는 Compound scaling과 비슷하거나 동일한 성능을 보여주지만 , **epoch time**과 **scale증가에 따른 activation의 점근적 증가율**이 낮은 것을 확인할 수 있습니다.
 
 * scale을 키워줌으로써 activation이 천천히 증가하는 것은 Run-time 측면에서 중요한 역할을 하는데 이유는 뒷부분에서 다루도록 하겠습니다.
@@ -42,6 +46,37 @@ Scaling은 Filter의 채널수(**width**)를 늘리거나 , Layer수(**Depth**)�
 
 ## Complexity of Scaled Models
 
+해석을 하는 것 보다는 원문으로 받아들이는 게 더 직관적일 것 같아 영어로 서술하겠습니다.
+
+* **Flops** : To mean multiply adds
+
+* **Parameters** : To denote the number of free variables in a model
+
+* **Activations** : To define the number of elements in the output tensors of CNN layers
+
+이런 Metric을 기반으로 Neural Network의 Complexity를 계산하는 법을 알아보겠습니다.
+
+![1](https://user-images.githubusercontent.com/70448161/111894934-62888e80-8a52-11eb-8900-737c9db042e4.PNG)
+
+![2](https://user-images.githubusercontent.com/70448161/111894936-63212500-8a52-11eb-8d21-d7f052191701.PNG)
+
+사실 , flops , parameters , activations 들이 계산되는 과정들은 아직 잘 모르겠지만 뒤의 과정들을 이해하는데에는 지장은 없으므로 우선 생략하겠습니다.
+
+아래의 테이블은 depth, width , resolution을 얼마만큼 scaling 했을 때 flops, parameters, activations 들이 어떻게 변하는지 위에 정의해준 공식을 이용해서 계산해준 테이블입니다.
+
+![Single](https://user-images.githubusercontent.com/70448161/111894997-f9554b00-8a52-11eb-9751-9eb62207a1b5.PNG)
+
+* Single-scaling의 Complexity에서 주시할 점은 다른 detph나 resolution은 activation을 s만큼 증가시킨것에 비해 width scaling만 activation을 root(s) 만큼 증가시켰다는 점입니다.
+
+* 이런 observation은 뒤에 서술하겠지만 저자가 사용할 아이디어에 핵심이 됩니다.
+
+![Compound](https://user-images.githubusercontent.com/70448161/111894998-fa867800-8a52-11eb-9c0d-9a272f21f83c.PNG)
+
+* 위의 테이블에서는 한가지만 scaling 한것이 아닌 여러가지 조합(depth-width , width-resolution , depth-width-resolution ..)network들의 Complexity를 보여줍니다.
+
+* Compound scaling이라 불리는 dwr scaling은 activation이 거의 linear하게 증가한 것을 확인할 수 있습니다.
+
+scaling 방법에 따른 Complexity가 어떻게 변하는지 살펴봤습니다. 이제 이런 Complexity metric과 Model Runtime 간의 관계를 밝혀보겠습니다.
 
 ## Runtime of Scaled Models
 
