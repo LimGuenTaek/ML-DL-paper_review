@@ -13,7 +13,3 @@
  paper : https://arxiv.org/abs/2103.06877
  
  ---
- 
- **2021-03-28** : [ICCV] [Learning Spatiotemporal Features with 3D Convolutional Networks]() (2014 , Du Tran et al)
- 
- paper : https://arxiv.org/abs/1412.0767
