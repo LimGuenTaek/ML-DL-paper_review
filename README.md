@@ -13,3 +13,9 @@
  paper : https://arxiv.org/abs/2103.06877
  
  ---
+
+**2021-04-05** : [NIPS] [Generative Adversarial Network]() (2014 , Ian J. Goodfellow et al)
+ 
+ paper : https://arxiv.org/abs/1406.2661
+ 
+ ---
