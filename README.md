@@ -14,7 +14,7 @@
  
  ---
 
-**2021-04-05** : [NIPS] [Generative Adversarial Network]() (2014 , Ian J. Goodfellow et al)
+**2021-04-05** : [NIPS] [Generative Adversarial Network](https://github.com/LimGuenTaek/ML-DL-paper_review/blob/main/review/Generative%20Adversarial%20Network.md) (2014 , Ian J. Goodfellow et al)
  
  paper : https://arxiv.org/abs/1406.2661
  
