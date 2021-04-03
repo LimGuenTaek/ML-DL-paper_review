@@ -20,17 +20,19 @@
 
 사실 , GAN이 나오기 전에도 Generative Model들이 존재했지만 , GAN이 지금까지도 각광받는 이유는 **적대적** 생성 모델이기 때문인 것 같습니다.
 
-**적대적**이란 말을 설명하기전에 우선 GAN model에는 **두가지 network**가 존재합니다.
+**적대적**이란 말을 설명하기전에 우선 Generative Adversarial Network에 존재하는 **두가지 network**를 간단히 소개하겠습니다.
 
 * **Generative Model** 
    * 우리가 Input 으로 넣어준 Data(image, voice, text)의 distribution을 알아내려고 노력하는 network 입니다. 
-   * 바로 이 Generator가 그럴듯한 데이터들을 생성해주는 생성 모델이고 , 만약 이 Generator가 Data의 distribution을 잘 학습 했다면 학습한 distribution으로 부터 그럴듯한 생성 data instance를 만들어 줄 수 있습니다.
+   * 바로 이 Generator가 그럴듯한 데이터들을 생성해주는 생성 모델입니다.
+   * 이 Generator가 Data의 distribution을 잘 학습 했다면 학습한 distribution과 noise vector를 섞어줘서 그럴듯한 생성 data instance를 만들어 줄 수 있습니다.
 
 * **Discriminative Model** 
    * 입력으로 들어온 sample data가 진짜 input data로 부터 온 것인지 Generator로 부터 온 것인지를 구별하여 각각의 경우에 대한 확률을 estimate 합니다.
-   * 즉, 만들어진 가짜 데이터인지 진짜 입력 데이터로부터 온 것인지 구별하는 일을 하며 , 결론적으론 Generator의 학습을 돕기위해 사용됩니다.
+   * 입력으로 들어온 sample data가 Discriminator가 판단하기에 real data에 가까운 것 같다면 확률값은 1 , fake data에 가까운 것 같다면 확률값은 0 이런식으로 반환합니다.
+   * 즉, 만들어진 가짜 데이터인지 진짜 입력 데이터로부터 온 것인지 구별하는 일을 하며 , 결과적으론 더 정교한 Generator를 만들기 위해 사용됩니다.
 
-이를 가장 쉽게 설명해주는 예시가 위조지폐범과 경찰인데 간단하게 말하면 위조지폐범(Generator)은 더욱 진짜 같은 위조지폐를 만들기 위해 노력하고 경찰(Discriminator)는 더욱 더 정교한 기법으로 지폐들을 검출하는 방향으로 노력합니다.
+이를 가장 쉽게 설명해주는 예시가 위조지폐범과 경찰인데 간단하게 말하면 위조지폐범(Generator)은 경찰의 눈을 피해 진짜 같은 위조지폐를 만들기 위해 노력하고 경찰(Discriminator)는 더욱 더 정교한 기법으로 지폐들을 검출하는 방향으로 노력합니다.
 
 이것이 GAN의 핵심 아이디어 입니다. 
 
