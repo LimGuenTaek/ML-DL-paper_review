@@ -20,7 +20,7 @@
  
  ---
  
- **2021-05-03** : [An overview of gradient descent optimization algorithms]() (2016 , Sebastian Ruder)
+ **2021-05-03** : [An overview of gradient descent optimization algorithms , PART 1](http://server.rcv.sejong.ac.kr:8080/2021/05/02/an-overview-of-gradient-descent-optimization-algorithms-part-1/) (2016 , Sebastian Ruder)
  
  paper : https://arxiv.org/abs/1609.04747
  
