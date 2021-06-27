@@ -37,3 +37,9 @@
  paper : https://arxiv.org/abs/1511.06434
  
  ---
+ 
+   **2021-06-28** : [ICCV] [Focal Loss for Dense Object Detection](http://server.rcv.sejong.ac.kr:8080/2021/06/28/iccv-2017-focal-loss-for-dense-object-detection/) (2017 , Facebook AI Research (FAIR))
+ 
+ paper : https://arxiv.org/abs/1708.02002
+ 
+ ---
