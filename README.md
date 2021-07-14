@@ -43,3 +43,15 @@
  paper : https://arxiv.org/abs/1708.02002
  
  ---
+
+   **2021-07-05** : [arXiv] [TSP : Temporally-Sensitive Pretraining of Video Encoders for Localization Tasks](http://server.rcv.sejong.ac.kr:8080/2021/07/05/tsp-temporally-sensitive-pretraining-of-video-encoders-for-localization-tasks-2/) (2020 , Humam Alwassel Silvio Giancola Bernard Ghanem)
+ 
+ paper : https://arxiv.org/pdf/2011.11479.pdf
+ 
+ ---
+ 
+   **2021-07-12** : [CVPR] [Temporal Action Localization in Untrimmed Videos via Multi-stage CNNs](http://server.rcv.sejong.ac.kr:8080/2021/07/12/cvpr-2016-temporal-action-localization-in-untrimmed-videos-via-multi-stage-cnns/) (2016 , Zheng Shou, Dongang Wang, and Shih-Fu Chang)
+ 
+ paper : https://openaccess.thecvf.com/content_cvpr_2016/papers/Shou_Temporal_Action_Localization_CVPR_2016_paper.pdf
+ 
+ ---
